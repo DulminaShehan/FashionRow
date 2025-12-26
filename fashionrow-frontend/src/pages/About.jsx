@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa6";
 
 function About() {
   return (
@@ -7,6 +8,7 @@ function About() {
       minHeight: '100vh',
       fontFamily: "'Montserrat', sans-serif"
     }}>
+      
       {/* Hero Section */}
       <div style={{
         background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
@@ -41,6 +43,7 @@ function About() {
         }}>
           ABOUT FASHIONROW
         </h1>
+
         <p style={{ 
           color: '#b0b0b0', 
           fontSize: '20px',
@@ -73,28 +76,31 @@ function About() {
           }}>
             Our Story
           </h2>
+
           <p style={{
             color: '#c0c0c0',
             fontSize: '18px',
             lineHeight: '1.8',
             marginBottom: '20px'
           }}>
-            Founded in <strong style={{ color: '#d4af37' }}>2023</strong>, FashionRow has been at the forefront of luxury fashion for <strong style={{ color: '#d4af37' }}>2 years</strong>. We believe that fashion is not just about clothing—it's about expressing your unique identity and embracing timeless elegance.
+            Founded in <strong style={{ color: '#d4af37' }}>2023</strong>, FashionRow has been at the forefront of luxury fashion for <strong style={{ color: '#d4af37' }}>2 years</strong>. We believe fashion is not just clothing—it's identity and timeless elegance.
           </p>
+
           <p style={{
             color: '#c0c0c0',
             fontSize: '18px',
             lineHeight: '1.8',
             marginBottom: '20px'
           }}>
-            Our carefully curated collections blend traditional craftsmanship with contemporary design, offering our distinguished clientele pieces that transcend trends and seasons.
+            Our curated collections blend craftsmanship with contemporary design, offering unique luxury pieces.
           </p>
+
           <p style={{
             color: '#c0c0c0',
             fontSize: '18px',
             lineHeight: '1.8'
           }}>
-            From the finest fabrics to meticulous attention to detail, every piece in our collection tells a story of excellence, sophistication, and unparalleled quality.
+            Every piece tells a story of excellence, sophistication, and quality.
           </p>
         </div>
 
@@ -105,6 +111,7 @@ function About() {
           gap: '30px',
           marginBottom: '50px'
         }}>
+          
           <div style={{
             background: '#1a1a1a',
             padding: '40px',
@@ -123,7 +130,7 @@ function About() {
               Premium Quality
             </h3>
             <p style={{ color: '#b0b0b0', lineHeight: '1.7' }}>
-              We source only the finest materials and work with master craftsmen to ensure every piece meets our exacting standards.
+              Finest materials crafted to perfection.
             </p>
           </div>
 
@@ -145,7 +152,7 @@ function About() {
               Exclusive Designs
             </h3>
             <p style={{ color: '#b0b0b0', lineHeight: '1.7' }}>
-              Our collections feature unique, limited-edition pieces that you won't find anywhere else.
+              Unique limited-edition luxury wear.
             </p>
           </div>
 
@@ -167,7 +174,7 @@ function About() {
               Personalized Service
             </h3>
             <p style={{ color: '#b0b0b0', lineHeight: '1.7' }}>
-              Our VIP concierge team provides bespoke styling advice and white-glove customer service.
+              VIP styling & elite support.
             </p>
           </div>
         </div>
@@ -186,51 +193,23 @@ function About() {
             gap: '40px'
           }}>
             <div>
-              <div style={{
-                fontSize: '48px',
-                fontWeight: '700',
-                color: '#d4af37',
-                marginBottom: '10px',
-                fontFamily: "'Playfair Display', serif"
-              }}>
-                2 Years
-              </div>
-              <div style={{ color: '#c0c0c0', fontSize: '16px', letterSpacing: '1px' }}>
-                Of Excellence
-              </div>
+              <div style={{ fontSize: '48px', fontWeight: '700', color: '#d4af37' }}>2 Years</div>
+              <div style={{ color: '#c0c0c0' }}>Of Excellence</div>
             </div>
+
             <div>
-              <div style={{
-                fontSize: '48px',
-                fontWeight: '700',
-                color: '#d4af37',
-                marginBottom: '10px',
-                fontFamily: "'Playfair Display', serif"
-              }}>
-                5000+
-              </div>
-              <div style={{ color: '#c0c0c0', fontSize: '16px', letterSpacing: '1px' }}>
-                Happy Customers
-              </div>
+              <div style={{ fontSize: '48px', fontWeight: '700', color: '#d4af37' }}>5000+</div>
+              <div style={{ color: '#c0c0c0' }}>Happy Customers</div>
             </div>
+
             <div>
-              <div style={{
-                fontSize: '48px',
-                fontWeight: '700',
-                color: '#d4af37',
-                marginBottom: '10px',
-                fontFamily: "'Playfair Display', serif"
-              }}>
-                100%
-              </div>
-              <div style={{ color: '#c0c0c0', fontSize: '16px', letterSpacing: '1px' }}>
-                Satisfaction Rate
-              </div>
+              <div style={{ fontSize: '48px', fontWeight: '700', color: '#d4af37' }}>100%</div>
+              <div style={{ color: '#c0c0c0' }}>Satisfaction</div>
             </div>
           </div>
         </div>
 
-        {/* Connect With Us */}
+        {/* Connect Section */}
         <div style={{
           background: '#1a1a1a',
           padding: '60px 50px',
@@ -248,13 +227,9 @@ function About() {
           }}>
             Connect With Us
           </h2>
-          <p style={{
-            color: '#b0b0b0',
-            fontSize: '18px',
-            marginBottom: '40px',
-            lineHeight: '1.7'
-          }}>
-            Follow us on social media to stay updated with our latest collections, exclusive offers, and fashion inspiration.
+
+          <p style={{ color: '#b0b0b0', fontSize: '18px', marginBottom: '40px' }}>
+            Follow our luxury fashion journey
           </p>
 
           <div style={{
@@ -263,70 +238,59 @@ function About() {
             gap: '30px',
             flexWrap: 'wrap'
           }}>
+            
             {/* Facebook */}
-            <a 
-              href="https://facebook.com" 
-              target="_blank"
-              rel="noopener noreferrer"
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
               style={{
                 width: '70px',
                 height: '70px',
-                background: 'linear-gradient(135deg, #1877f2 0%, #0d5dbf 100%)',
+                background: 'linear-gradient(135deg, #1877f2, #0d5dbf)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '32px',
-                textDecoration: 'none',
-                transition: 'transform 0.3s',
-                boxShadow: '0 8px 20px rgba(24,119,242,0.4)'
+                boxShadow: '0 8px 20px rgba(24,119,242,0.4)',
+                transition: '0.3s'
               }}
             >
-              📘
+              <FaFacebookF color="#fff" />
             </a>
 
             {/* Instagram */}
-            <a 
-              href="https://instagram.com" 
-              target="_blank"
-              rel="noopener noreferrer"
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
               style={{
                 width: '70px',
                 height: '70px',
-                background: 'linear-gradient(135deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)',
+                background: 'linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '32px',
-                textDecoration: 'none',
-                transition: 'transform 0.3s',
-                boxShadow: '0 8px 20px rgba(225,48,108,0.4)'
+                boxShadow: '0 8px 20px rgba(225,48,108,0.4)',
+                transition: '0.3s'
               }}
             >
-              📷
+              <FaInstagram color="#fff" />
             </a>
 
             {/* TikTok */}
-            <a 
-              href="https://tiktok.com" 
-              target="_blank"
-              rel="noopener noreferrer"
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
               style={{
                 width: '70px',
                 height: '70px',
-                background: 'linear-gradient(135deg, #000000 0%, #ff0050 100%)',
+                background: 'linear-gradient(135deg,#000,#ff0050)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '32px',
-                textDecoration: 'none',
-                transition: 'transform 0.3s',
-                boxShadow: '0 8px 20px rgba(255,0,80,0.4)'
+                boxShadow: '0 8px 20px rgba(255,0,80,0.4)',
+                transition: '0.3s'
               }}
             >
-              🎵
+              <FaTiktok color="#fff" />
             </a>
           </div>
 
@@ -335,29 +299,27 @@ function About() {
             paddingTop: '40px',
             borderTop: '1px solid rgba(212,175,55,0.2)'
           }}>
-            <p style={{ color: '#888', fontSize: '14px', marginBottom: '15px' }}>
-              Ready to elevate your wardrobe?
-            </p>
+            <p style={{ color: '#888', fontSize: '14px' }}>Ready for luxury?</p>
+
             <Link 
               to="/shop"
               style={{
                 display: 'inline-block',
-                background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
-                color: '#0a0a0a',
+                background: 'linear-gradient(135deg,#d4af37,#f4e5c3)',
+                color: '#000',
                 padding: '16px 40px',
                 borderRadius: '30px',
                 textDecoration: 'none',
                 fontWeight: '700',
-                fontSize: '15px',
                 letterSpacing: '1.5px',
                 textTransform: 'uppercase',
-                boxShadow: '0 8px 20px rgba(212,175,55,0.3)',
-                transition: 'transform 0.3s'
+                boxShadow: '0 8px 20px rgba(212,175,55,0.3)'
               }}
             >
               Explore Collections
             </Link>
           </div>
+
         </div>
       </div>
     </div>
