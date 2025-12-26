@@ -1,11 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, User, Heart, Menu, X, Search } from 'lucide-react';
 import { useState } from 'react';
+import { useShop } from '../../context/ShopContext';  // ADD THIS LINE
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
+  const { getCartCount } = useShop();  // ADD THIS LINE
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -264,7 +266,7 @@ function Navbar() {
               <Heart size={22} />
             </Link>
 
-            {/* Cart with Badge */}
+            {/* Cart with Badge - REPLACE THIS SECTION */}
             <Link to="/cart" style={{
               position: 'relative',
               color: '#d4af37',
@@ -277,25 +279,27 @@ function Navbar() {
               textDecoration: 'none'
             }}>
               <ShoppingBag size={22} />
-              <span style={{
-                position: 'absolute',
-                top: '2px',
-                right: '2px',
-                background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
-                color: '#0a0a0a',
-                fontSize: '11px',
-                fontWeight: '700',
-                borderRadius: '50%',
-                width: '20px',
-                height: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 3px 8px rgba(212,175,55,0.4)',
-                fontFamily: "'Montserrat', sans-serif"
-              }}>
-                3
-              </span>
+              {getCartCount() > 0 && (
+                <span style={{
+                  position: 'absolute',
+                  top: '2px',
+                  right: '2px',
+                  background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
+                  color: '#0a0a0a',
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  borderRadius: '50%',
+                  width: '20px',
+                  height: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 3px 8px rgba(212,175,55,0.4)',
+                  fontFamily: "'Montserrat', sans-serif"
+                }}>
+                  {getCartCount()}
+                </span>
+              )}
             </Link>
 
             {/* User Account */}

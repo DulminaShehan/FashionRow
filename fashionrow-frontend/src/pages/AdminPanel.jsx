@@ -83,7 +83,7 @@ function AdminPanel() {
   }
 
   function handleDelete(id) {
-    if (!confirm('Delete this product?')) return;
+    if (!window.confirm('Delete this product?')) return;
     const updated = products.filter(p => p.id !== id);
     setProducts(updated);
     saveToStorage(updated);
