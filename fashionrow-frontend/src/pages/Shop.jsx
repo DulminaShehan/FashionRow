@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Filter, Grid, List, ChevronDown } from 'lucide-react';
+import { Filter, Grid, List, Heart } from 'lucide-react';
+import { useShop } from '../context/ShopContext';
+import { Link } from 'react-router-dom';
 
 function LuxuryShop() {
   const [products, setProducts] = useState([]);
@@ -9,6 +11,8 @@ function LuxuryShop() {
   const [sortBy, setSortBy] = useState('featured');
   const [viewMode, setViewMode] = useState('grid');
   const [showFilters, setShowFilters] = useState(true);
+  
+  const { addToCart, addToWishlist, isInWishlist } = useShop(); // ADD THIS LINE
 
   // Mock luxury products with sizes
   const mockProducts = [
@@ -111,6 +115,22 @@ function LuxuryShop() {
     } else {
       setSelectedSizes([...selectedSizes, size]);
     }
+  };
+
+  const handleAddToCart = (product, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (product.sizes && product.sizes.length > 0) {
+      addToCart(product, product.sizes[0]);
+      alert(`${product.name} added to cart!`);
+    }
+  };
+
+  const handleWishlistToggle = (product, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToWishlist(product);
+    alert(`${product.name} added to wishlist!`);
   };
 
   const filteredProducts = products.filter(product => {
@@ -328,22 +348,6 @@ function LuxuryShop() {
               >
                 Clear Filters
               </button>
-
-              <button style={{
-                width: '100%',
-                background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
-                color: '#0a0a0a',
-                padding: '12px',
-                borderRadius: '25px',
-                border: 'none',
-                fontWeight: '700',
-                cursor: 'pointer',
-                fontSize: '13px',
-                letterSpacing: '1px',
-                textTransform: 'uppercase'
-              }}>
-                Apply Filters
-              </button>
             </div>
           </div>
 
@@ -389,7 +393,6 @@ function LuxuryShop() {
               </div>
 
               <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                {/* Sort Dropdown */}
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
@@ -410,7 +413,6 @@ function LuxuryShop() {
                   <option value="newest">Newest</option>
                 </select>
 
-                {/* View Toggle */}
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <button
                     onClick={() => setViewMode('grid')}
@@ -453,16 +455,21 @@ function LuxuryShop() {
               gap: '30px'
             }}>
               {filteredProducts.map(product => (
-                <div key={product.id} style={{
-                  background: '#1a1a1a',
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  border: '1px solid rgba(212,175,55,0.2)',
-                  transition: 'all 0.3s',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  display: viewMode === 'list' ? 'flex' : 'block'
-                }}>
+                <Link 
+                  key={product.id} 
+                  to={`/product/${product.id}`}
+                  style={{
+                    textDecoration: 'none',
+                    background: '#1a1a1a',
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+                    border: '1px solid rgba(212,175,55,0.2)',
+                    transition: 'all 0.3s',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    display: viewMode === 'list' ? 'flex' : 'block'
+                  }}
+                >
                   {/* Tag */}
                   <div style={{
                     position: 'absolute',
@@ -480,6 +487,30 @@ function LuxuryShop() {
                   }}>
                     {product.tag}
                   </div>
+
+                  {/* Wishlist Button */}
+                  <button
+                    onClick={(e) => handleWishlistToggle(product, e)}
+                    style={{
+                      position: 'absolute',
+                      top: '15px',
+                      right: '15px',
+                      background: 'rgba(0,0,0,0.7)',
+                      border: 'none',
+                      color: '#d4af37',
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      zIndex: 10,
+                      transition: 'all 0.3s'
+                    }}
+                  >
+                    <Heart size={20} fill={isInWishlist(product.id) ? '#d4af37' : 'none'} />
+                  </button>
 
                   {/* Image */}
                   <div style={{
@@ -573,25 +604,28 @@ function LuxuryShop() {
                       </div>
                     </div>
 
-                    <button style={{
-                      width: '100%',
-                      background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
-                      color: '#0a0a0a',
-                      padding: '14px',
-                      borderRadius: '25px',
-                      border: 'none',
-                      fontWeight: '700',
-                      cursor: 'pointer',
-                      fontSize: '13px',
-                      letterSpacing: '1.5px',
-                      textTransform: 'uppercase',
-                      transition: 'all 0.3s',
-                      boxShadow: '0 5px 15px rgba(212,175,55,0.3)'
-                    }}>
+                    <button 
+                      onClick={(e) => handleAddToCart(product, e)}
+                      style={{
+                        width: '100%',
+                        background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
+                        color: '#0a0a0a',
+                        padding: '14px',
+                        borderRadius: '25px',
+                        border: 'none',
+                        fontWeight: '700',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        letterSpacing: '1.5px',
+                        textTransform: 'uppercase',
+                        transition: 'all 0.3s',
+                        boxShadow: '0 5px 15px rgba(212,175,55,0.3)'
+                      }}
+                    >
                       Add to Cart
                     </button>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
 

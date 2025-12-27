@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Sparkles, TrendingUp, Star } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import { useShop } from '../context/ShopContext';
+import { Link } from 'react-router-dom';
 
 function NewArrivals() {
   const [newProducts, setNewProducts] = useState([]);
+  const { addToCart, addToWishlist, isInWishlist } = useShop();
 
   // Mock new arrival products
   const mockNewArrivals = [
@@ -77,6 +80,22 @@ function NewArrivals() {
   useEffect(() => {
     setNewProducts(mockNewArrivals);
   }, []);
+
+  const handleAddToCart = (product, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (product.sizes && product.sizes.length > 0) {
+      addToCart(product, product.sizes[0]);
+      alert(`${product.name} added to cart!`);
+    }
+  };
+
+  const handleWishlistToggle = (product, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToWishlist(product);
+    alert(`${product.name} added to wishlist!`);
+  };
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-IN', {
@@ -203,153 +222,187 @@ function NewArrivals() {
           gap: '35px'
         }}>
           {newProducts.map(product => (
-            <div key={product.id} style={{
-              background: '#1a1a1a',
-              borderRadius: '25px',
-              overflow: 'hidden',
-              border: '1px solid rgba(212,175,55,0.3)',
-              transition: 'all 0.4s',
-              cursor: 'pointer',
-              position: 'relative',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
-            }}>
-              {/* New Badge */}
+            <Link 
+              key={product.id}
+              to={`/product/${product.id}`}
+              style={{ textDecoration: 'none' }}
+            >
               <div style={{
-                position: 'absolute',
-                top: '20px',
-                left: '20px',
-                background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
-                color: '#0a0a0a',
-                padding: '8px 20px',
+                background: '#1a1a1a',
                 borderRadius: '25px',
-                fontSize: '12px',
-                fontWeight: '700',
-                letterSpacing: '1px',
-                zIndex: 10,
-                textTransform: 'uppercase',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                boxShadow: '0 5px 15px rgba(212,175,55,0.4)'
-              }}>
-                <Sparkles size={14} />
-                {product.tag}
-              </div>
-
-              {/* Image */}
-              <div style={{
-                width: '100%',
-                height: '400px',
                 overflow: 'hidden',
-                position: 'relative'
+                border: '1px solid rgba(212,175,55,0.3)',
+                transition: 'all 0.4s',
+                cursor: 'pointer',
+                position: 'relative',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
               }}>
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.5s'
-                  }}
-                />
+                {/* New Badge */}
                 <div style={{
                   position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%)'
-                }}></div>
-              </div>
-
-              {/* Content */}
-              <div style={{ padding: '30px' }}>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '12px'
-                }}>
-                  <div style={{
-                    color: '#888',
-                    fontSize: '13px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1.5px',
-                    fontWeight: '600'
-                  }}>
-                    {product.category}
-                  </div>
-                  <div style={{ color: '#d4af37', fontSize: '16px' }}>
-                    {'⭐'.repeat(product.rating)}
-                  </div>
-                </div>
-
-                <h3 style={{
-                  color: '#f5f5f5',
-                  fontSize: '22px',
-                  fontWeight: '700',
-                  marginBottom: '15px',
-                  letterSpacing: '0.5px',
-                  fontFamily: "'Playfair Display', serif"
-                }}>
-                  {product.name}
-                </h3>
-
-                {/* Available Sizes */}
-                <div style={{ marginBottom: '20px' }}>
-                  <div style={{ 
-                    color: '#888', 
-                    fontSize: '11px', 
-                    marginBottom: '10px',
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase'
-                  }}>
-                    Available Sizes:
-                  </div>
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                    {product.sizes.map(size => (
-                      <span key={size} style={{
-                        padding: '6px 14px',
-                        background: '#2d2d2d',
-                        border: '1px solid rgba(212,175,55,0.3)',
-                        borderRadius: '8px',
-                        fontSize: '12px',
-                        color: '#c0c0c0',
-                        fontWeight: '600'
-                      }}>
-                        {size}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div style={{
-                  fontSize: '28px',
-                  fontWeight: '700',
-                  color: '#d4af37',
-                  marginBottom: '25px',
-                  fontFamily: "'Playfair Display', serif"
-                }}>
-                  {formatPrice(product.price)}
-                </div>
-
-                <button style={{
-                  width: '100%',
+                  top: '20px',
+                  left: '20px',
                   background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
                   color: '#0a0a0a',
-                  padding: '16px',
-                  borderRadius: '30px',
-                  border: 'none',
+                  padding: '8px 20px',
+                  borderRadius: '25px',
+                  fontSize: '12px',
                   fontWeight: '700',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  letterSpacing: '1.5px',
+                  letterSpacing: '1px',
+                  zIndex: 10,
                   textTransform: 'uppercase',
-                  transition: 'all 0.3s',
-                  boxShadow: '0 8px 20px rgba(212,175,55,0.4)'
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: '0 5px 15px rgba(212,175,55,0.4)'
                 }}>
-                  Add to Cart
+                  <Sparkles size={14} />
+                  {product.tag}
+                </div>
+
+                {/* Wishlist Button */}
+                <button
+                  onClick={(e) => handleWishlistToggle(product, e)}
+                  style={{
+                    position: 'absolute',
+                    top: '20px',
+                    right: '20px',
+                    background: 'rgba(0,0,0,0.7)',
+                    border: 'none',
+                    color: '#d4af37',
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 10,
+                    transition: 'all 0.3s',
+                    fontSize: '20px'
+                  }}
+                >
+                  {isInWishlist(product.id) ? '❤️' : '🤍'}
                 </button>
+
+                {/* Image */}
+                <div style={{
+                  width: '100%',
+                  height: '400px',
+                  overflow: 'hidden',
+                  position: 'relative'
+                }}>
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.5s'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%)'
+                  }}></div>
+                </div>
+
+                {/* Content */}
+                <div style={{ padding: '30px' }}>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '12px'
+                  }}>
+                    <div style={{
+                      color: '#888',
+                      fontSize: '13px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1.5px',
+                      fontWeight: '600'
+                    }}>
+                      {product.category}
+                    </div>
+                    <div style={{ color: '#d4af37', fontSize: '16px' }}>
+                      {'⭐'.repeat(product.rating)}
+                    </div>
+                  </div>
+
+                  <h3 style={{
+                    color: '#f5f5f5',
+                    fontSize: '22px',
+                    fontWeight: '700',
+                    marginBottom: '15px',
+                    letterSpacing: '0.5px',
+                    fontFamily: "'Playfair Display', serif"
+                  }}>
+                    {product.name}
+                  </h3>
+
+                  {/* Available Sizes */}
+                  <div style={{ marginBottom: '20px' }}>
+                    <div style={{ 
+                      color: '#888', 
+                      fontSize: '11px', 
+                      marginBottom: '10px',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase'
+                    }}>
+                      Available Sizes:
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      {product.sizes.map(size => (
+                        <span key={size} style={{
+                          padding: '6px 14px',
+                          background: '#2d2d2d',
+                          border: '1px solid rgba(212,175,55,0.3)',
+                          borderRadius: '8px',
+                          fontSize: '12px',
+                          color: '#c0c0c0',
+                          fontWeight: '600'
+                        }}>
+                          {size}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '700',
+                    color: '#d4af37',
+                    marginBottom: '25px',
+                    fontFamily: "'Playfair Display', serif"
+                  }}>
+                    {formatPrice(product.price)}
+                  </div>
+
+                  <button 
+                    onClick={(e) => handleAddToCart(product, e)}
+                    style={{
+                      width: '100%',
+                      background: 'linear-gradient(135deg, #d4af37 0%, #f4e5c3 100%)',
+                      color: '#0a0a0a',
+                      padding: '16px',
+                      borderRadius: '30px',
+                      border: 'none',
+                      fontWeight: '700',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      letterSpacing: '1.5px',
+                      textTransform: 'uppercase',
+                      transition: 'all 0.3s',
+                      boxShadow: '0 8px 20px rgba(212,175,55,0.4)'
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
